@@ -506,10 +506,10 @@ public class ExamStudentControllerTest {
     
     @Test
     public void testfindByStudentNonExistentExamStudent() {
-        when(ExamStudentRepository.findByStudentId(any(Long.class))).thenReturn(null);
+        when(ExamStudentRepository.findByExamIdAndStudentId(any(Long.class),any(Long.class))).thenReturn(null);
         ResponseEntity<?> response = null;
         try {
-            response = ExamStudentController.findByStudent(1L);
+            response = ExamStudentController.findExamStudentsByExamAndStudent(1L, 1L);
         } catch (Exception e) {
         }
 
@@ -529,7 +529,7 @@ public class ExamStudentControllerTest {
         Exam exam = new Exam(1L, "Exam name", "URL",0.1, "Exam description", 3600, professor, null, null);
         ExamStudent examStudent = new ExamStudent(1L, 5.0, null, student, exam);
         
-        when(ExamStudentRepository.findByStudentId(any(Long.class))).thenReturn(examStudent);
+        when(ExamStudentRepository.findByExamIdAndStudentId(any(Long.class),any(Long.class))).thenReturn(examStudent);
         
         // dto
         ProfessorDto professorDto = new ProfessorDto(1L, "11", "Juan carlos", "Gomez", "juant@me.co", "Janco27", "password");
@@ -539,7 +539,7 @@ public class ExamStudentControllerTest {
         
         ResponseEntity<?> response = null;
         try {
-            response = ExamStudentController.findByStudent(1L);
+            response = ExamStudentController.findExamStudentsByExamAndStudent(1L, 1L);
         } catch (Exception e) {
         }
 
