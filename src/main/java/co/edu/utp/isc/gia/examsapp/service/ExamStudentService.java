@@ -103,9 +103,9 @@ public class ExamStudentService {
         }
     }
  
-    public ExamStudentDto findByStudent(Long studentId) throws Exception {
+    public ExamStudentDto findExamStudentsByExamAndStudent(Long examId, Long studentId) throws Exception {
         try {
-            ExamStudent examStudent = examStudentRepository.findByStudentId(studentId);
+            ExamStudent examStudent = examStudentRepository.findByExamIdAndStudentId(examId, studentId);
             
             if(examStudent != null) {
                 return modelMapper.map(examStudent, ExamStudentDto.class);
