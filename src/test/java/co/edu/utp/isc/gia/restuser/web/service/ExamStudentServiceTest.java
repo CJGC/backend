@@ -492,12 +492,12 @@ public class ExamStudentServiceTest {
     
     @Test
     public void testfindByStudentNonExistentExamStudent() {
-        when(ExamStudentRepository.findByStudentId(any(Long.class))).thenReturn(null);
+        when(ExamStudentRepository.findByExamIdAndStudentId(any(Long.class), any(Long.class))).thenReturn(null);
         ExamStudentDto response;
         ExamStudentDto expResult = null;
         
         try {
-            response = examStudentService.findByStudent(1L);
+            response = examStudentService.findExamStudentsByExamAndStudent(1L, 1L);
             assertEquals(expResult, response);
         } catch (Exception e) {}
     }
@@ -510,7 +510,7 @@ public class ExamStudentServiceTest {
         Exam exam = new Exam(1L, "Exam name", "URL",0.1, "Exam description", 3600, professor, null, null);
         ExamStudent examStudent = new ExamStudent(1L, 5.0, null, student, exam);
         
-        when(ExamStudentRepository.findByStudentId(any(Long.class))).thenReturn(examStudent);
+        when(ExamStudentRepository.findByExamIdAndStudentId(any(Long.class),any(Long.class))).thenReturn(examStudent);
         
         // dto
         ProfessorDto professorDto = new ProfessorDto(1L, "11", "Juan carlos", "Gomez", "juant@me.co", "Janco27", "password");
@@ -521,7 +521,7 @@ public class ExamStudentServiceTest {
         ExamStudentDto response;
         ExamStudentDto expResult = examStudentDto;
         try {
-            response = examStudentService.findByStudent(1L);
+            response = examStudentService.findExamStudentsByExamAndStudent(1L, 1L);
             assertThat(response, sameBeanAs(expResult));
         } catch (Exception e) {
         }
