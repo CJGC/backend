@@ -69,10 +69,12 @@ public class ExamStudentController {
         }
     }
 
-    @GetMapping("/bystudent")
-    public ResponseEntity<?> findByStudent(@RequestParam("id") Long studentId) throws Exception {
+    @GetMapping("/byexamandstudent")
+    public ResponseEntity<?> findExamStudentsByExamAndStudent(
+            @RequestParam("examId") Long examId, 
+            @RequestParam("studentId") Long studentId) throws Exception {
         try {
-            ExamStudentDto examStudentDto = examStudentService.findByStudent(studentId);
+            ExamStudentDto examStudentDto = examStudentService.findExamStudentsByExamAndStudent(examId, studentId);
             return new ResponseEntity<>(examStudentDto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
